@@ -33,8 +33,9 @@ const app = new Frog<{ State: State }>({
 );
 
 app.frame("/", (c) => {
-  const { buttonValue, status, deriveState, verified } = c;
+  const { buttonValue, status, deriveState } = c;
   const fid = c.var?.interactor?.fid;
+  // @ts-ignore
   const hasVoted = c.previousState.votedFids.includes(fid);
 
   if (hasVoted) {
@@ -48,6 +49,7 @@ app.frame("/", (c) => {
     });
   }
 
+  // @ts-ignore
   deriveState((previousState) => {
     if (buttonValue === "yes") previousState.yesVotes += 1;
     if (buttonValue === "no") previousState.noVotes += 1;
